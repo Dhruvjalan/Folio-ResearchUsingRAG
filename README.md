@@ -1,4 +1,4 @@
-# Folio — Research Intelligence
+# Folio : Research Using RAG
 
 A local RAG (Retrieval-Augmented Generation) application for analyzing research papers. Upload PDFs directly in the browser or connect to an S3 bucket, then ask questions across your documents using a LangGraph-orchestrated pipeline.
 
