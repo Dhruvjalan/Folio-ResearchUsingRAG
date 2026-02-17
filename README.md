@@ -54,17 +54,18 @@ cp server/.example.env server/.env
 
 ```env
 # server/.env
+ENV_HEALTH = True
+FLASK_PORT=5000  #Local development port. Change if deploying to a platform that requires a specific port.
+GROQ_API_KEY = "" #Replace with your actual GROQ API key
+HF_API_KEY = "" #Replace with your actual Hugging Face API key
+OPENAI_API_KEY = "" #Replace with your actual OpenAI API key. Note: For security, consider using environment variables or a secrets manager to store API keys in production.
 
-GROQ_API_KEY=your_groq_api_key_here
-
-# Only required when using S3 as context source
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
-S3_BUCKET_NAME=your_bucket_name
-S3_PREFIX=papers/          # Optional subfolder prefix within the bucket
-
-# Optional
-FLASK_PORT=5000
+#Example: "s3://your-bucket-name/your-folder/"
+S3_URI = "" 
+AWS_ACCESS_KEY = "" #Replace with your actual AWS Access Key. 
+AWS_SECRET_KEY = "" #Replace with your actual AWS Secret Key. 
+S3_BUCKET_NAME = "" #Replace with your actual S3 bucket name. This is the bucket where your documents will be stored.
+S3_PREFIX = "" # The folder inside your bucket
 ```
 
 ### 3. Install dependencies
@@ -84,7 +85,7 @@ python app.py
 
 The app will be available at **http://localhost:{PORT}**
 
- where `{PORT}` is the value set in `.env`.
+ where `{PORT}` is the value set in `.env`, (by default:5000).
 ---
 
 ## How It Works
