@@ -1,0 +1,14 @@
+flask
+python-dotenv
+# LlamaIndex Core and Components
+llama-index-core
+llama-index-llms-groq
+llama-index-embeddings-huggingface
+llama-index-readers-s3
+# Infrastructure & Support
+s3fs
+langgraph
+# Recommended for HuggingFace embeddings
+sentence-transformers
+# Environment management
+typing-extensions

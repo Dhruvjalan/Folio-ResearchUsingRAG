@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+server/.venv/
+.venv/
+
+# Environment variables
+server/.env
+
+# LlamaIndex persisted vector index
+server/storage/
+
+# OS
+.DS_Store
+Thumbs.db
