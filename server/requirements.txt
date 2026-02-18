@@ -12,3 +12,4 @@ langgraph
 sentence-transformers
 # Environment management
 typing-extensions
+flask-cors

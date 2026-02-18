@@ -4,6 +4,8 @@ A local RAG (Retrieval-Augmented Generation) application for analyzing research 
 
 ---
 
+![Alt text](public/Example.png)
+
 ## Project Structure
 
 ```
@@ -55,16 +57,17 @@ cp server/.example.env server/.env
 ```env
 # server/.env
 
-GROQ_API_KEY=your_groq_api_key_here
+ENV_HEALTH = True
+FLASK_PORT=5000  #Local development port. Change if deploying to a platform that requires a specific port.
+GROQ_API_KEY = "" #Replace with your actual GROQ API key
 
-# Only required when using S3 as context source
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
-S3_BUCKET_NAME=your_bucket_name
-S3_PREFIX=papers/          # Optional subfolder prefix within the bucket
 
-# Optional
-FLASK_PORT=5000
+S3_URI = "" #Example: s3://your-bucket-name/your-folder/
+AWS_ACCESS_KEY_ID = "" #Replace with your actual AWS Access Key. 
+AWS_SECRET_ACCESS_KEY = "" #Replace with your actual AWS Secret Key. 
+S3_BUCKET_NAME = "" #Replace with your actual S3 bucket name. This is the bucket where your documents will be stored.
+S3_PREFIX = "" # The folder inside your bucket
+AWS_REGION = "eu-north-1" # Your AWS from AWS Site. This can change per your bucket's region. Example: us-west-2
 ```
 
 ### 3. Install dependencies

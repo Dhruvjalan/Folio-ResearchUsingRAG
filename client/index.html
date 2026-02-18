@@ -897,7 +897,7 @@
     async function checkHealth() {
       const dot = document.getElementById('statusDot');
       try {
-        const r = await fetch(`${API_BASE}/`);
+        const r = await fetch(`${API_BASE}/health`);
         if (r.ok) {
           const d = await r.json();
           dot.textContent = `online · ${d.source || 'ready'}`;
@@ -1108,7 +1108,8 @@
         }
       } catch (err) {
         hideTypingIndicator();
-        appendAssistantMessage(`Could not reach the server. Make sure your backend is running at \`${API_BASE}\`.`);
+        appendAssistantMessage(`Could not reach the server. Make sure your backend is running at \`${API_BASE}\` Message: ${err.message}`);
+        console.log(err);
       }
 
       isLoading = false;

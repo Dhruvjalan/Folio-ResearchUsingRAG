@@ -5,6 +5,7 @@ from pathlib import Path
 from flask import Flask, jsonify, request, send_from_directory
 from dotenv import load_dotenv
 from typing import TypedDict
+from flask_cors import CORS 
 
 # LlamaIndex & AI Imports
 from llama_index.core import Settings, VectorStoreIndex, StorageContext, load_index_from_storage, SimpleDirectoryReader
@@ -20,6 +21,7 @@ load_dotenv()
 # AWS / S3 Settings
 S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
 S3_PREFIX = os.getenv("S3_PREFIX")
+
 AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
@@ -52,8 +54,8 @@ def get_s3_index():
         reader = S3Reader(
             bucket=S3_BUCKET_NAME,
             prefix=S3_PREFIX,
-            aws_access_id=AWS_ACCESS_KEY,
-            aws_access_secret=AWS_SECRET_KEY
+            aws_access_key_id=AWS_ACCESS_KEY,
+            aws_secret_access_key=AWS_SECRET_KEY
         )
         documents = reader.load_data()
         index = VectorStoreIndex.from_documents(documents)
@@ -121,15 +123,17 @@ workflow.add_edge("retrieve", "generate")
 workflow.add_edge("generate", END)
 rag_graph = workflow.compile()
 
+
 # --- 5. FLASK API ROUTES ---
 app = Flask(__name__, static_folder='.', static_url_path='')
+CORS(app)
 
 @app.route('/')
 def index():
     """Serve the frontend."""
     return send_from_directory('.', 'index.html')
 
-@app.route('/health')
+@app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({"status": "online", "source": "S3-Bucket"})
 
