@@ -85,7 +85,16 @@ pip install -r requirements.txt
 python app.py
 ```
 
-The app will be available at **http://localhost:{PORT}**
+### 5. Start the Frontend
+
+```bash
+cd ./client
+npm install
+npm run dev
+```
+
+The backend app will be available at **http://localhost:{PORT}**
+The frontend app will be available at **http://localhost:5173**
 
  where `{PORT}` is the value set in `.env`, (by default:5000).
 ---

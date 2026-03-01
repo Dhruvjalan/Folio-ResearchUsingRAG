@@ -7,34 +7,27 @@ from dotenv import load_dotenv
 from typing import TypedDict
 from flask_cors import CORS 
 
-# LlamaIndex & AI Imports
 from llama_index.core import Settings, VectorStoreIndex, StorageContext, load_index_from_storage, SimpleDirectoryReader
 from llama_index.core import Document
 from llama_index.llms.groq import Groq
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.readers.s3 import S3Reader
 from langgraph.graph import StateGraph, END
-
-# --- 1. CONFIGURATION ---
 load_dotenv()
 
-# AWS / S3 Settings
 S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
 S3_PREFIX = os.getenv("S3_PREFIX")
 
 AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
-# Local Storage for the Index
 BASE_DIR = Path.cwd()
 STORAGE_DIR = BASE_DIR / "storage"
 STORAGE_DIR.mkdir(exist_ok=True)
 
-# Flask Config
 PORT = int(os.getenv("FLASK_PORT", 5000))
 GROQ_MODEL = 'llama-3.3-70b-versatile'
 
-# --- 2. MODEL SETUP ---
 embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 llm = Groq(model=GROQ_MODEL)
 
@@ -42,7 +35,6 @@ Settings.llm = llm
 Settings.embed_model = embed_model
 Settings.chunk_size = 512
 
-# --- 3. RAG LOGIC (The Index) ---
 def get_s3_index():
     """Load or build the S3-backed index."""
     if any(STORAGE_DIR.iterdir()):
