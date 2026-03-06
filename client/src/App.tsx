@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, type ChangeEvent, type DragEvent } 
 import './App.css';
 
 const API_BASE = "http://127.0.0.1:5000";
+// const API_BASE = "http://127.0.0.1:5000";
 
 // --- Types ---
 interface Paper { id: string; name: string; size: number; b64: string; }

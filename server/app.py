@@ -25,8 +25,9 @@ BASE_DIR = Path.cwd()
 STORAGE_DIR = BASE_DIR / "storage"
 STORAGE_DIR.mkdir(exist_ok=True)
 
-PORT = int(os.getenv("FLASK_PORT", 5000))
+PORT = int(os.environ.get("PORT", 5000))
 GROQ_MODEL = 'llama-3.3-70b-versatile'
+PROD = os.getenv("PROD", "False").lower() == "true"
 
 embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 llm = Groq(model=GROQ_MODEL)
@@ -53,6 +54,8 @@ def get_s3_index():
         index = VectorStoreIndex.from_documents(documents)
         index.storage_context.persist(persist_dir=str(STORAGE_DIR))
         return index
+    
+s3_index = get_s3_index()
 
 def build_pdf_index(pdf_files: list[dict]) -> VectorStoreIndex:
     """Build an in-memory index from base64-encoded PDFs."""
@@ -89,7 +92,6 @@ def retrieve(state: GraphState):
 
     # Query S3 index
     if state.get("use_s3", True):
-        s3_index = get_s3_index()
         qe = s3_index.as_query_engine(similarity_top_k=3)
         result = qe.query(state["question"])
         contexts.append(f"[S3 Documents]\n{result}")
@@ -162,6 +164,4 @@ def get_response():
     })
 
 if __name__ == '__main__':
-    print(f"Server starting on http://127.0.0.1:{PORT}")
-    print(f"Frontend available at http://127.0.0.1:{PORT}/")
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    app.run(host='0.0.0.0', port=PORT,debug= not PROD)

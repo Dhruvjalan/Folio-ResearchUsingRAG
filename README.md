@@ -6,12 +6,35 @@ A local RAG (Retrieval-Augmented Generation) application for analyzing research 
 
 ![Alt text](public/Example.png)
 
+## View it yourself
+
+View the deployed site (on Vercel) [here](https://graph-rag-app.vercel.app/)
+
+View the demo of me using it for research in another one of my projects [here](https://folio-dhruvjalans-projects.vercel.app/)
+
+
 ## Project Structure
 
 ```
 graph-rag-app/
 ├── client/
-│   └── index.html          # Frontend UI (served by Flask)
+│   └── index.html
+|   ├── src
+│       └── assets
+│           └── react.svg
+|       ├── App.css
+|       ├── App.tsx
+|       ├── index.css
+|       ├── main.tsx
+|   ├── README.md 
+|   ├── eslint.config.js
+|   ├── package-lock.json
+|   ├── package.json
+|   ├── tsconfig.app.json
+|   ├── tsconfig.json
+|   ├── tsconfig.node.json
+|   ├── vite.config.ts
+|
 └── server/
     ├── storage/            # Persisted vector index (auto-generated, gitignored)
     ├── .env                # Your local environment variables (gitignored)
@@ -58,7 +81,7 @@ cp server/.example.env server/.env
 # server/.env
 
 ENV_HEALTH = True
-FLASK_PORT=5000  #Local development port. Change if deploying to a platform that requires a specific port.
+PORT=5000  #Local development port. Change if deploying to a platform that requires a specific port.
 GROQ_API_KEY = "" #Replace with your actual GROQ API key
 
 
@@ -102,6 +125,7 @@ The frontend app will be available at **http://localhost:5173**
 ## How It Works
 
 Each question triggers a two-node LangGraph workflow:
+
 
 ```
 User Question
