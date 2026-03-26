@@ -8,7 +8,7 @@ A local RAG (Retrieval-Augmented Generation) application for analyzing research 
 
 ## View it yourself
 
-View the deployed site (on Vercel) [here](https://graph-rag-app.vercel.app/)
+View the deployed site (on Vercel) [here](https://folio-snowy-eight.vercel.app/)
 
 View the demo of me using it for research in another one of my projects [here](https://folio-dhruvjalans-projects.vercel.app/)
 
